@@ -1,0 +1,150 @@
+---
+import { PROJECTS } from "../consts"
+
+const finalProjects = PROJECTS.filter((project) => !project.hidden)
+  .slice()
+  .reverse()
+
+const buttonBase =
+  "inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+---
+
+<div
+  class="grid w-full gap-6 mb-6 lg:mb-16 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto"
+>
+  {
+    finalProjects.map((project, reversedIndex) => {
+      const index = finalProjects.length - reversedIndex - 1
+      const num = `${index + 1}`.padStart(2, "0")
+
+      return (
+        <article class="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-black/20 hover:shadow-xl hover:shadow-black/10">
+          <a
+            href={`/${project.slug}`}
+            class="relative block aspect-video overflow-hidden bg-gray-100"
+            tabindex="-1"
+          >
+            <img
+              class="size-full object-cover transition duration-500 group-hover:scale-105"
+              src={`/projects/${num}.webp`}
+              alt={`Captura de pantalla del proyecto ${project.title}`}
+              width="1000"
+              height="563"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="absolute left-3 top-3 rounded-md bg-black/75 px-2 py-0.5 font-mono text-sm font-bold text-white backdrop-blur-sm">
+              #{num}
+            </span>
+          </a>
+          <div class="flex flex-1 flex-col p-5">
+            <h2 class="text-2xl font-bold tracking-tight text-balance text-gray-900">
+              <a
+                href={`/${project.slug}`}
+                class="decoration-yellow-400 decoration-4 underline-offset-4 hover:underline"
+              >
+                {project.title}
+              </a>
+            </h2>
+            <p class="mt-2 text-pretty text-gray-600">{project.description}</p>
+            <ul class="mt-4 flex flex-wrap gap-1.5">
+              {project.learnings.map((learning) => (
+                <li class="rounded-md bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-200">
+                  {learning}
+                </li>
+              ))}
+            </ul>
+            <ul class="mt-auto flex gap-2 pt-6">
+              <li class="flex flex-1">
+                <a
+                  href={`/${project.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class:list={[
+                    buttonBase,
+                    "bg-yellow-300 text-black hover:bg-yellow-400",
+                  ]}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.75"
+                    stroke="currentColor"
+                    class="size-4"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"
+                    />
+                  </svg>
+                  Demo
+                </a>
+              </li>
+              <li class="flex flex-1">
+                <a
+                  href={`https://github.com/midudev/javascript-100-proyectos/tree/main/${project.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class:list={[
+                    buttonBase,
+                    "border border-gray-300 bg-white text-gray-900 hover:border-gray-400 hover:bg-gray-50",
+                  ]}
+                >
+                  <svg
+                    class="size-4"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Código
+                </a>
+              </li>
+              {project.youtube != null && (
+                <li class="flex flex-1">
+                  <a
+                    href={project.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class:list={[
+                      buttonBase,
+                      "border border-gray-300 bg-white text-gray-900 hover:border-red-300 hover:bg-red-50",
+                    ]}
+                  >
+                    <svg
+                      class="h-3.5 w-5"
+                      viewBox="0 0 256 180"
+                      width="256"
+                      height="180"
+                      xmlns="http://www.w3.org/2000/svg"
+                      preserveAspectRatio="xMidYMid"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134Z"
+                        fill="red"
+                      />
+                      <path
+                        fill="#FFF"
+                        d="m102.421 128.06 66.328-38.418-66.328-38.418z"
+                      />
+                    </svg>
+                    Vídeo
+                  </a>
+                </li>
+              )}
+            </ul>
+          </div>
+        </article>
+      )
+    })
+  }
+</div>

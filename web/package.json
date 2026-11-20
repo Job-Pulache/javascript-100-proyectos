@@ -1,0 +1,22 @@
+{
+  "name": "js-100-web",
+  "type": "module",
+  "version": "0.0.1",
+  "packageManager": "pnpm@11.28.2",
+  "scripts": {
+    "prepare": "node ./scripts/copy-projects.js",
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.10",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.3.5",
+    "tailwind-animations": "1.0.2",
+    "tailwindcss": "4.3.3",
+    "typescript": "6.0.3"
+  }
+}
